@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <div class="container max-w-lg w-full bg-white rounded-xl shadow-lg border-t-4 border-red-500 my-8 px-6 py-8" id="form-container">
+        <header>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2 flex items-center gap-3">📞 Contact Information for Order</h1>
+            {% if closing_message %}<p class="text-xs text-red-600 bg-orange-50 inline-block px-4 py-0.5 rounded">{{ closing_message }}</p>{% endif %}
+        </header>
+
+    <!-- Alert Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="messages rounded-lg p-4 space-y-2 mb-5 shadow-sm border">
+      {% for category, message in messages %}
+        <div class="{{ 'bg-red-100 text-red-800' if category == 'error' else '' }}" role="alert">{{ message|safe }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}</header></footer><!-- Phone Number Input Field -->  
+<div class="form-group relative mb-5"><legend class="flex items-center gap-1 pr-2 text-lg font-semibold bg-gray-800 p-1 rounded-md mb-[.7rem] text-white block w-fit max-w-max mx-auto border-b group-hover:bg-green-600 shadow-sm hover:translate-y-[-.5em">📱 Mobile Phone Number Required *</legend>
+<input type="tel" name="phone_number_cleaned_phone_input field styling for mobile and desktop, ensuring responsive design. Added placeholder text to guide users on proper format (e.g., +48 50X XX XXX) or US format (+1-XXX)" required></input-field-styling-for-mobile-and-desktop>  
+<!-- Name Input Field -->
+<div class="form-group relative mb-[2rem]"><legend class="flex items-center gap-1 pr-2 text-lg font-semibold bg-gray-800 p-1 rounded-md mb-.7rem text-white block w-fit max-w-max mx-auto border-b group-hover:bg-green-600 shadow-sm hover:translate-y[-.5em">🆔 Name Required *</legend>
+<input type="text" name="full_name"></form></body><footer class="mt-[2rem] pt=4 flex justify-center gap-3 items-center"><button id='order-submission-button"typesubmit"id' order-submit'>Order Contact Info</h1><!-- Footer -->
+
+<footer class="bg-gray-900 text-white py=[_6px" style="text-align:center;">
+  <p class="m=2">🚀 Pizza Delivery Service &copy; {{ current_year_default_value_if_needed_too_current | default(now) }}</p>
+</footer><!-- Form Submission -->
+
+<form id='order-form'submit' action='/order-submit'method=post>  
+<!-- Hidden Order ID --> <input type="hidden" name="order_id"value="{{ request.args.get('id','ORD-1234567890") }}">  
+--Name input field with label: Name Required * 
+</legend><div style="--hide">
+<script>alert("Form ready for submission! Check validation state!");document.querySelector('#phone').required=true;</script></form>
+
+</body>
+<!DOCTYPE html></html>\n\n}
