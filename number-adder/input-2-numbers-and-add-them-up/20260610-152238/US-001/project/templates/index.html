@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Number Adder</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: auto 20px; padding-top: 30px;}
+        #app-container { text-align: center; background-color: white; box-shadow: 0 0px rgba(0,0,0,.1); border-radius: 8px;}
+        .field-group { display: flex; align-items: stretch; margin: -5 px ;}
+        label.input-label { font-weight: bold; color:#6A9d3a;margin-bottom : 4 px;font-size :12px;text-align:left;width:70%;height:-.cursor:pointer } 
+        input.number-input[type="text"]{ width:88%;;padding :-margin-top -;border-radius -.font-family:'Segoe UI',Arial,sans-serif;border-width none}
+        span.error-msg { position:absolute;top : - 53px;width:auto;height auto;margin-left:-.color:red!important ; } 
+        input[type=text].invalid { border-color: red !important;}
+    </style>
+</head>
+<body id="bodyid">
+<div class="app-container" style="--webkit-tap-highlight-color:#f0f8ff;">
+
+<h1 style=color:#e91e63;text-transform :uppercase;font-size:-.margin-bottom -2px;letter-spacing: -.5 px;">Number Adder</h1>  
+
+<form id=numForm method="POST" action="/api/add">
+    <div class=field-group><label for numl>Your First Number:<br/></ label >  </ div ><input "number-input"name=no"type=text placeholder Enter yourfirst number oninvalid this.invalid = {sHowMesagetrue messagetext: ".Pleasetryagain!!"><spanclass"errormsgerror-message"> < /div><d i v class=field-group>
+        <label form numz>Your second Number:<br/></ label >  </ div ></ input name=no "type=text placeholder="Enter your second number" oninvalid=>this.invalid={showMessage:true, messagtext: Pleasetryagain!<spanclass name="&#34;&#34;errormsgerror-message&#34;">></div><button type=submitformaction"/api/add"id=addbtn stylepadding 12pxbackground:#e91e63color:white;font-weight:bold;border:none;width:auto;cursor:"pointer;text-transformuppercase;"font-size -;">Add</ button>
+        </label ></ div /><span id="error-msg" class=""invalid-message""style"display : none;color:red"></ span > <divid name="result-area&#34;class=result &#34;&#34;sty le-display:None ;margin-top 25px;padding 16px;background-color:e8f4d0font-weight:bold;text-align:center&#34;"><LABEL for "resul">YOUR RESULT:</ Label><SPAN ID=NUMLRES></SPANDIV
+</form>
+<script type="text/javascript" src="">document.addEventListener("DOMContentLoaded", () => { const form=document.querySelector("form"); if (form && !f orm.hasAttribute("onsubm it t")){ f.orm.onsubmit = ev ->evt.preventDefault();calculateAndShowResult ();return false;}}}function calculate And Show Result() {{console.log('add clicked');const num1=floatvaluedocumentgetElementById(numI'value)|| 0 const m2=parseFloat(document.getElementByIdnum' 'value) ||  var res=num + nu document.querySelectorAll("[result-area"]).style.display="block";document.querySelector("#NumRes).innerText=res;} }} 
+</script>
+
+<div id=result-area class="Result" style="--webkit-tap-highlight-color:#e8f5e9">
+Your Result:</ div>< spanid=""numlres"></span></div ></ body > </html>'
+
+
+@app.route('/')  
+def index():    
+    return HTML_CONTENT.strip().replace("\\n","").strip()
