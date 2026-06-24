@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do App</title>
+</head>
+<body>
+    <h1>Active Tasks</h1>
+    <ul>
+        {% for todo in active %}
+        <li>
+            {{ todo.title }}
+            <form action="{{ url_for('mark_done', id=todo.id) }}" method="POST">
+                <button type="submit">Done</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h1>Done Tasks</h1>
+    <ul>
+        {% for todo in done %}
+        <li>{{ todo.title }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add New Task</h2>
+    <form action="{{ url_for('add') }}" method="POST">
+        <input type="text" name="title" required>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>
