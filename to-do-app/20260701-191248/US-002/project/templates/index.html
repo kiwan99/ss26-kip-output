@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Active To-Do Items</h1>
+    <ul id="todo-list">
+        {% for todo in active_todos %}
+            <li>{{ todo.text }}</li>
+        {% endfor %}
+    </ul>
+    <form id="add-form">
+        <input type="text" id="todo-text" placeholder="New to-do item" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <script>
+        document.getElementById('add-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const text = document.getElementById('todo-text').value;
+            fetch('/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'text=' + encodeURIComponent(text)
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById('todo-text').value = '';
+                }
+            });
+        });
+
+        const socket = io();
+        socket.on('item_added', function(data) {
+            const li = document.createElement('li');
+            li.textContent = data.text;
+            document.getElementById('todo-list').appendChild(li);
+        });
+    </script>
+</body>
+</html>
