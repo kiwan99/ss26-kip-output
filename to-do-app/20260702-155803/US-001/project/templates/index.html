@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do App</title>
+</head>
+<body>
+    <h1>Add New To-Do Item</h1>
+    <form method="POST">
+        <input type="text" name="todo" required>
+        <input type="submit" value="Add">
+    </form>
+    <h2>Active Tasks:</h2>
+    <ul>
+        {% for item in todo_list %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
