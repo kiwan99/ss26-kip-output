@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>Active Tasks</h1>
+    <ul>
+    {% for task in tasks %}
+        <li>{{ task.description }}
+            <form action="{{ url_for('mark_done', task_id=task.id) }}" method="post">
+                <input type="submit" value="Done">
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
