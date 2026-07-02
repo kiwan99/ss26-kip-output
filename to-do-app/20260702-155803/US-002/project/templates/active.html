@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Active To-Do Items</title>
+</head>
+<body>
+    <h1>Active Items</h1>
+    <ul>
+        {% for item in items %}
+        <li>{{ item }} 
+            <a href="{{ url_for('mark_done', item_index=loop.index-1) }}">Done</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <p><a href="{{ url_for('done') }}">View Done Items</a></p>
+</body>
+</html>

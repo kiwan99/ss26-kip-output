@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Done To-Do Items</title>
+</head>
+<body>
+    <h1>Done Items</h1>
+    <ul>
+        {% for item in done_items %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+    <p><a href="{{ url_for('active') }}">Back to Active Items</a></p>
+</body>
+</html>
