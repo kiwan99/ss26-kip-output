@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do App</title>
+</head>
+<body>
+    <h1>Active Tasks</h1>
+    <ul>
+        {% for task in active_tasks %}
+        <li>{{ task.title }} 
+            <a href="{{ url_for('complete_task', task_id=task.id) }}">Complete</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h1>Done Tasks</h1>
+    <ul>
+        {% for task in done_tasks %}
+        <li style="text-decoration: line-through; color: gray;">{{ task.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
