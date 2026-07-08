@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do App</title>
+</head>
+<body>
+    <h1>Active Todos</h1>
+    <ul>
+        {% for todo in todos %}
+        <li>
+            {{ todo.text }}
+            <form method="POST" action="{{ url_for('index') }}">
+                <input type="hidden" name="todo_id" value="{{ todo.id }}">
+                <button type="submit">Done</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h1>Done Todos</h1>
+    <ul>
+        {% for todo in done_todos %}
+        <li>
+            {{ todo.text }}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
