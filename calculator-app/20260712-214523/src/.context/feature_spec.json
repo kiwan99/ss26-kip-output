@@ -1,11 +1,10 @@
 {
-  "id": "US-002",
-  "title": "Server-Side Computation & Result Rendering",
-  "user_story": "As a user, I want submitting the form to compute the result server-side and re-render the page with the result in a labeled area, so that I can see the correct answer immediately.",
+  "id": "US-003",
+  "title": "Input Validation & Error Handling",
+  "user_story": "As a user, I want clear feedback when inputs are invalid or operations fail, so that I can correct mistakes without confusion.",
   "acceptance_criteria": [
-    "Submitting the form triggers server-side computation of the selected operation",
-    "The page re-renders after submission displaying the calculated value",
-    "A clearly labeled result area shows the numeric output",
-    "Original input values and chosen operation remain visible on the updated page"
+    "Entering non-numeric characters in number fields prevents calculation and displays an error message",
+    "Leaving any required field empty shows a prompt to fill in missing values",
+    "Attempting division by zero displays a clear warning instead of crashing the app"
   ]
 }

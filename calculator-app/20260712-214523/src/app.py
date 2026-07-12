@@ -19,6 +19,32 @@ def calculate(num1, num2, operation):
         return None
 
 
+def validate_inputs(num1_str, num2_str):
+    """Validate form inputs and return a list of error messages."""
+    errors = []
+
+    # Check for empty fields (Criterion 2)
+    if not num1_str or num1_str.strip() == "":
+        errors.append("Please enter a value for the first number.")
+    if not num2_str or num2_str.strip() == "":
+        errors.append("Please enter a value for the second number.")
+
+    # Check for non-numeric characters (Criterion 1)
+    if num1_str and num1_str.strip():
+        try:
+            float(num1_str)
+        except ValueError:
+            errors.append(f"'{num1_str}' is not a valid number.")
+
+    if num2_str and num2_str.strip():
+        try:
+            float(num2_str)
+        except ValueError:
+            errors.append(f"'{num2_str}' is not a valid number.")
+
+    return errors
+
+
 def escape_html(text):
     """Escape special HTML characters."""
     s = str(text)
@@ -39,7 +65,7 @@ def format_number(value):
     return str(f)
 
 
-def render_page(num1=None, num2=None, operation="add", result=None):
+def render_page(num1=None, num2=None, operation="add", result=None, error=None):
     """Generate the calculator HTML page."""
 
     num1_val = escape_html(format_number(num1)) if num1 is not None else ""
@@ -53,14 +79,28 @@ def render_page(num1=None, num2=None, operation="add", result=None):
         sel = ' selected' if operation == op else ''
         options_html += f'<option value="{escape_html(op)}"{sel}>{op_labels[op]}</option>\n'
 
-    # Build result section
+    # Build result section (only show if no error)
     result_html = ""
-    if result is not None:
+    if error is None and result is not None:
         result_display = escape_html(format_number(result))
         result_html = f'''<div class="result-area">
             <div class="result-label">Result</div>
             <div class="result-value">{result_display}</div>
         </div>'''
+
+    # Build error section
+    error_html = ""
+    if error is not None:
+        escaped_error = escape_html(error)
+        error_lines = escaped_error.split("\n")
+        messages_html = ""
+        for line in error_lines:
+            stripped = line.strip()
+            if stripped:
+                messages_html += f'<div class="error-message">{stripped}</div>\n'
+        error_html = f'''<div class="error-area">
+            <div class="error-label">Error</div>
+{messages_html}        </div>'''
 
     html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -162,6 +202,27 @@ def render_page(num1=None, num2=None, operation="add", result=None):
             font-weight: bold;
         }}
 
+        .error-area {{
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #fdedec;
+            border: 1px solid #e74c3c;
+            border-radius: 4px;
+            text-align: center;
+        }}
+
+        .error-label {{
+            font-weight: 600;
+            color: #c0392b;
+            margin-bottom: 0.5rem;
+        }}
+
+        .error-message {{
+            font-size: 1rem;
+            color: #e74c3c;
+            font-weight: bold;
+        }}
+
         @media (max-width: 480px) {{
             .calculator {{
                 margin: 1rem;
@@ -194,7 +255,7 @@ def render_page(num1=None, num2=None, operation="add", result=None):
             <button type="submit" name="calculate">Calculate</button>
         </form>
 
-{result_html}    </div>
+{result_html}{error_html}    </div>
 </body>
 </html>'''
     return html
@@ -223,38 +284,42 @@ class CalculatorHandler(BaseHTTPRequestHandler):
             post_data = self.rfile.read(content_length).decode("utf-8")
 
             # Parse form data (application/x-www-form-urlencoded)
+            from urllib.parse import parse_qs
             params = {}
             if post_data:
-                for pair in post_data.split("&"):
-                    if "=" in pair:
-                        key, value = pair.split("=", 1)
-                        from urllib.parse import unquote_plus
-                        params[unquote_plus(key)] = unquote_plus(value)
+                parsed = parse_qs(post_data)
+                for key, values in parsed.items():
+                    params[key] = values[0] if values else ""
 
             num1_str = params.get("num1", "")
             num2_str = params.get("num2", "")
             operation = params.get("operation", "add")
 
-            num1 = None
-            num2 = None
+            # Validate inputs before attempting calculation (Criteria 1 & 2)
+            validation_errors = validate_inputs(num1_str, num2_str)
 
-            try:
-                if num1_str:
-                    num1 = float(num1_str)
-            except (ValueError, TypeError):
-                num1 = None
+            if validation_errors:
+                # Input validation failed — show errors, skip calculation
+                error_message = "\n".join(validation_errors)
+                body = render_page(num1=None, num2=None, operation=operation, result=None, error=error_message)
+            else:
+                # Inputs are valid — convert to float and calculate
+                num1 = float(num1_str) if num1_str.strip() else None
+                num2 = float(num2_str) if num2_str.strip() else None
 
-            try:
-                if num2_str:
-                    num2 = float(num2_str)
-            except (ValueError, TypeError):
-                num2 = None
+                result = None
+                error = None
 
-            result = None
-            if num1 is not None and num2 is not None:
-                result = calculate(num1, num2, operation)
+                if num1 is not None and num2 is not None:
+                    result = calculate(num1, num2, operation)
 
-            body = render_page(num1=num1, num2=num2, operation=operation, result=result)
+                    # Check for division by zero (Criterion 3)
+                    if operation == "divide" and result is None:
+                        error = "Cannot divide by zero."
+                        result = None
+
+                body = render_page(num1=num1, num2=num2, operation=operation, result=result, error=error)
+
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(body.encode("utf-8"))))
