@@ -1,9 +1,9 @@
 {
-  "id": "US-002",
-  "title": "Server-Side Calculation and Result Display",
-  "user_story": "As a user, I want submitting the form to compute the result server-side and re-render the page with a labeled result area, so that I can see my calculation outcome.",
+  "id": "US-003",
+  "title": "Division by Zero Error Handling",
+  "user_story": "As a user, I want division by zero to show an error message instead of crashing, so that the app remains stable and minimal.",
   "acceptance_criteria": [
-    "Submitting the form computes the result server-side.",
-    "The page re-renders with a labeled result area showing the computed value."
+    "Division by zero shows an error message instead of crashing.",
+    "Keep it minimal: no auth, no database, no JS frameworks."
   ]
 }
