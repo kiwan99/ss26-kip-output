@@ -9,7 +9,7 @@
       "The input field clears automatically after successfully adding a task.",
       "Submitting an empty input does not create a blank task."
     ],
-    "state": "in-development"
+    "state": "passed"
   },
   {
     "id": "US-002",
@@ -21,7 +21,7 @@
       "A delete button next to each task permanently removes it from the view when clicked.",
       "All changes appear instantly without requiring a page refresh."
     ],
-    "state": "ready-for-development"
+    "state": "in-development"
   },
   {
     "id": "US-003",
