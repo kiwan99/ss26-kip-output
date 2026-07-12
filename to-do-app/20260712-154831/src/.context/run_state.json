@@ -1,0 +1,8 @@
+{
+  "feature_request": "Build a minimal single-page to-do app",
+  "run_dir": "output/to-do-app/20260712-154831",
+  "status": "us-001-developer-iteration-2",
+  "current_story_id": "us-001",
+  "developer_iteration": 2,
+  "last_feedback": "Fresh repair attempt. Use only this feedback plus the handoff context; do not rely on prior tool history.\nStatic validation notes:\n- src/static/style.css references future story 'US-002'. Keep implementation scoped to the current story only."
+}
