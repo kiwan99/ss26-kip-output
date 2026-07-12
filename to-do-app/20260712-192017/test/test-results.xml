@@ -1,1 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.030" timestamp="2026-07-12T19:45:16.877501+00:00" hostname="jupyter-infwve579"><testcase classname="output.to-do-app.20260712-192017.test.test_us-001" name="test_ui_elements_and_valid_task_addition" time="0.005" /><testcase classname="output.to-do-app.20260712-192017.test.test_us-001" name="test_empty_and_whitespace_input_validation" time="0.002" /></testsuite></testsuites>
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="4" time="0.117" timestamp="2026-07-12T20:04:03.875445+00:00" hostname="jupyter-infwve579"><testcase classname="output.to-do-app.20260712-192017.test.test_us-001" name="test_ui_elements_and_valid_task_addition" time="0.005" /><testcase classname="output.to-do-app.20260712-192017.test.test_us-001" name="test_empty_and_whitespace_input_validation" time="0.002" /><testcase classname="output.to-do-app.20260712-192017.test.test_us-002" name="test_empty_list_placeholder_and_structure" time="0.001"><failure message="AttributeError: 'str' object has no attribute 'get'">def test_empty_list_placeholder_and_structure():
+        """
+        Covers:
+          - All submitted tasks appear in a vertical list below the input area.
+          - If no tasks exist, a clear placeholder message like 'No tasks yet' is displayed.
+    
+        Verifies HTML structure: taskList &lt;ul&gt; sits after addTaskForm &lt;form&gt;,
+        and when the API returns zero tasks the rendered page contains the
+        'No tasks yet' placeholder paragraph.
+        """
+        # Check API state first to know whether we have an empty list scenario
+        _, api_json = _get("/api/tasks")
+&gt;       task_count = len(api_json.get("tasks", []))
+                         ^^^^^^^^^^^^
+E       AttributeError: 'str' object has no attribute 'get'
+
+test_us-002.py:44: AttributeError</failure></testcase><testcase classname="output.to-do-app.20260712-192017.test.test_us-002" name="test_chronological_order_and_dynamic_update" time="0.054"><failure message="AttributeError: 'str' object has no attribute 'get'">def test_chronological_order_and_dynamic_update():
+        """
+        Covers:
+          - Tasks are ordered chronologically by creation time consistently.
+          - The list updates dynamically as new tasks are added without requiring a page refresh.
+    
+        Posts two distinct tasks with a small delay, then verifies via both the
+        JSON API and rendered HTML that they appear in insertion order (which is
+        chronological) and that the placeholder disappears after adding tasks.
+        """
+        # Add first task
+        _, r1 = _post("/api/tasks", {"text": "Task Alpha"})
+        assert r1["status"] == "ok"
+        id_alpha = r1["task"]["id"]
+    
+        time.sleep(0.05)  # ensure distinct timestamps
+    
+        # Add second task
+        _, r2 = _post("/api/tasks", {"text": "Task Beta"})
+        assert r2["status"] == "ok"
+        id_beta = r2["task"]["id"]
+    
+        # Criterion 2: API returns tasks sorted by created_at (chronological)
+        _, api_json = _get("/api/tasks")
+&gt;       returned_tasks = api_json.get("tasks", [])
+                         ^^^^^^^^^^^^
+E       AttributeError: 'str' object has no attribute 'get'
+
+test_us-002.py:89: AttributeError</failure></testcase></testsuite></testsuites>
