@@ -21,7 +21,7 @@
       "A clearly labeled result area shows the numeric output",
       "Original input values and chosen operation remain visible on the updated page"
     ],
-    "state": "in-development"
+    "state": "passed"
   },
   {
     "id": "US-003",
@@ -32,6 +32,6 @@
       "Leaving any required field empty shows a prompt to fill in missing values",
       "Attempting division by zero displays a clear warning instead of crashing the app"
     ],
-    "state": "ready-for-development"
+    "state": "in-development"
   }
 ]
