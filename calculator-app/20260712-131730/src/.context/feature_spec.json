@@ -1,0 +1,11 @@
+{
+  "id": "US-001",
+  "title": "Core Calculator UI and Form Submission",
+  "user_story": "As a user, I want a plain HTML UI served at the root route / with two number inputs, an operation picker for add/subtract/multiply/divide, and a Calculate button, so that I can prepare my calculation request.",
+  "acceptance_criteria": [
+    "The page loads at the root route / with a plain HTML UI.",
+    "Two number inputs are present on the page.",
+    "A way to pick one of the four basic operations (add, subtract, multiply, divide) is available.",
+    "A Calculate button submits the form."
+  ]
+}
