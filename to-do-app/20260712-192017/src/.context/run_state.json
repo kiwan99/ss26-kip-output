@@ -1,8 +1,8 @@
 {
   "feature_request": "Simple single-page To-Do Web App",
   "run_dir": "output/to-do-app/20260712-192017",
-  "status": "us-001-developer-iteration-1",
-  "current_story_id": "us-001",
-  "developer_iteration": 1,
-  "last_feedback": "No prior feedback. Preserve completed stories while implementing the current story."
+  "status": "us-002-developer-iteration-3",
+  "current_story_id": "us-002",
+  "developer_iteration": 3,
+  "last_feedback": "Fresh repair attempt. Use only this feedback plus the handoff context; do not rely on prior tool history.\nDeveloper iteration failed: cannot schedule new futures after shutdown"
 }

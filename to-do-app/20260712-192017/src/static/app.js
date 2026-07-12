@@ -1,4 +1,4 @@
-/* To-Do App — Client-side interactivity for US-001: Add New Tasks */
+/* To-Do App — Client-side interactivity for US-001: Add New Tasks, US-002: View Task List */
 
 (function () {
   "use strict";
@@ -52,10 +52,52 @@
     var li = document.createElement("li");
     li.className = "task-item";
     li.setAttribute("data-task-id", task.id);
+    if (task.created_at) {
+      li.setAttribute("data-created-at", task.created_at);
+    }
     li.textContent = task.text;
     taskList.appendChild(li);
 
     return li;
+  }
+
+  /**
+   * Fetch all tasks from server and render them in chronological order.
+   */
+  function loadTasks() {
+    fetch("/api/tasks")
+      .then(function (response) {
+        if (!response.ok) throw new Error("Failed to load tasks.");
+        return response.json();
+      })
+      .then(function (data) {
+        var tasks = data.tasks;
+
+        // Clear existing list
+        taskList.innerHTML = "";
+
+        if (!tasks || tasks.length === 0) {
+          // Show placeholder when no tasks exist
+          var p = document.createElement("p");
+          p.className = "no-tasks";
+          p.textContent = "No tasks yet";
+          taskList.appendChild(p);
+          return;
+        }
+
+        // Sort by created_at to ensure chronological order
+        tasks.sort(function (a, b) {
+          return (a.created_at || 0) - (b.created_at || 0);
+        });
+
+        // Render each task in order
+        for (var i = 0; i < tasks.length; i++) {
+          renderTask(tasks[i]);
+        }
+      })
+      .catch(function (err) {
+        console.error("Error loading tasks:", err.message);
+      });
   }
 
   /**
@@ -120,4 +162,7 @@
       clearValidationMessage();
     }
   });
+
+  // Load all existing tasks on page load for US-002
+  loadTasks();
 })();

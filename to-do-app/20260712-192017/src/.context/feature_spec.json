@@ -1,11 +1,11 @@
 {
-  "id": "US-001",
-  "title": "Add New Tasks",
-  "user_story": "As a user, I want to type task text into an input field and submit it with a button, so that I can quickly capture items I need to do.",
+  "id": "US-002",
+  "title": "View Task List",
+  "user_story": "As a user, I want to see all my added tasks displayed in order on the page, so that I can easily review what needs attention.",
   "acceptance_criteria": [
-    "The page displays a text input field and an 'Add Task' button.",
-    "Entering text and clicking the button adds the task to the visible list immediately without reloading the page.",
-    "Submitting an empty or whitespace-only input does not add a new task and shows a brief validation message.",
-    "After successful submission, the input field clears automatically for the next entry."
+    "All submitted tasks appear in a vertical list below the input area.",
+    "Tasks are ordered chronologically by creation time consistently.",
+    "If no tasks exist, a clear placeholder message like 'No tasks yet' is displayed.",
+    "The list updates dynamically as new tasks are added without requiring a page refresh."
   ]
 }
