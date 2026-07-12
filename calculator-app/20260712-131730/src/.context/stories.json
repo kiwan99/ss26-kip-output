@@ -9,7 +9,7 @@
       "A way to pick one of the four basic operations (add, subtract, multiply, divide) is available.",
       "A Calculate button submits the form."
     ],
-    "state": "in-development"
+    "state": "passed"
   },
   {
     "id": "US-002",
@@ -19,7 +19,7 @@
       "Submitting the form computes the result server-side.",
       "The page re-renders with a labeled result area showing the computed value."
     ],
-    "state": "ready-for-development"
+    "state": "in-development"
   },
   {
     "id": "US-003",
