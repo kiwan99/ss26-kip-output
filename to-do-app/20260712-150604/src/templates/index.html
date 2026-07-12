@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 24px;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        #task-input {
+            flex: 1;
+            padding: 10px 12px;
+            font-size: 16px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        #task-input:focus {
+            border-color: #3498db;
+        }
+
+        #add-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #add-btn:hover {
+            background-color: #2980b9;
+        }
+
+        #task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-text {
+            flex: 1;
+            font-size: 16px;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #95a5a6;
+            padding: 30px 0;
+            font-style: italic;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .input-area {
+                flex-direction: column;
+            }
+
+            #add-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do App</h1>
+
+    <div class="input-area">
+        <input type="text" id="task-input" placeholder="Enter a new task..." autocomplete="off">
+        <button id="add-btn">Add</button>
+    </div>
+
+    {% if tasks %}
+    <ul id="task-list">
+        {% for task in tasks %}
+        <li class="task-item" data-id="{{ task.id }}">
+            <span class="task-text">{{ task.text }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div id="empty-state" class="empty-state">No tasks yet. Add one above!</div>
+    <ul id="task-list"></ul>
+    {% endif %}
+
+    <script>
+        (function () {
+            var input = document.getElementById('task-input');
+            var addBtn = document.getElementById('add-btn');
+            var taskList = document.getElementById('task-list');
+            var emptyState = document.getElementById('empty-state');
+
+            function hideEmptyState() {
+                if (emptyState) {
+                    emptyState.style.display = 'none';
+                }
+            }
+
+            function showEmptyState() {
+                if (emptyState && taskList.children.length === 0) {
+                    emptyState.style.display = 'block';
+                }
+            }
+
+            function addTask() {
+                var text = input.value;
+
+                // Reject empty/whitespace-only input
+                if (!text || !text.trim()) {
+                    return;
+                }
+
+                hideEmptyState();
+
+                fetch('/add_task', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: text })
+                })
+                .then(function (response) {
+                    if (!response.ok) {
+                        // Server rejected the task — do NOT clear input
+                        return response.json().then(function (err) {
+                            console.error('Failed to add task:', err.error);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (!data || !data.id) {
+                        return;
+                    }
+
+                    // Append new <li> at the bottom of the list
+                    var li = document.createElement('li');
+                    li.className = 'task-item';
+                    li.setAttribute('data-id', data.id);
+
+                    var span = document.createElement('span');
+                    span.className = 'task-text';
+                    span.textContent = data.text;
+
+                    li.appendChild(span);
+                    taskList.appendChild(li);
+
+                    // Clear input field after successful add
+                    input.value = '';
+                })
+                .catch(function (err) {
+                    console.error('Network error:', err);
+                });
+            }
+
+            addBtn.addEventListener('click', addTask);
+
+            // Also allow pressing Enter in the input field
+            input.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addTask();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

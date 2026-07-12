@@ -1,0 +1,38 @@
+[
+  {
+    "id": "US-001",
+    "title": "Add New Task",
+    "user_story": "As a user, I want to add a new task to my list, so that I can keep track of things I need to do.",
+    "acceptance_criteria": [
+      "The app displays an input field and an Add button on the main page.",
+      "Entering text in the input field and clicking Add creates a new task entry at the bottom of the list.",
+      "Submitting an empty input does not create a blank task.",
+      "After adding, the input field clears automatically for the next entry."
+    ],
+    "state": "in-development"
+  },
+  {
+    "id": "US-002",
+    "title": "View and Mark Tasks as Complete",
+    "user_story": "As a user, I want to see all my tasks and mark them as done, so that I can track my progress visually.",
+    "acceptance_criteria": [
+      "All added tasks are displayed in a list on the main page.",
+      "Each task displays its text content clearly.",
+      "Clicking a checkbox or toggle next to a task marks it as complete and applies a visual indicator such as strikethrough or dimmed text.",
+      "Clicking again removes the completion state, restoring the original appearance."
+    ],
+    "state": "ready-for-development"
+  },
+  {
+    "id": "US-003",
+    "title": "Remove Completed or Unwanted Tasks",
+    "user_story": "As a user, I want to delete tasks from my list, so that I can keep it clean and focused on current priorities.",
+    "acceptance_criteria": [
+      "Each task in the list has a visible Delete button or icon next to it.",
+      "Clicking Delete immediately removes the task from the displayed list.",
+      "Deleting a task does not affect other tasks in the list.",
+      "If all tasks are deleted, the page shows an empty state message such as No tasks yet."
+    ],
+    "state": "ready-for-development"
+  }
+]
