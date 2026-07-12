@@ -1,0 +1,8 @@
+{
+  "feature_request": "Build a single-page calculator app: plain HTML UI served at the root route /. The page contains two number inputs, a way to pick one of the four basic operations (add, subtract, multiply, divide), a Calculate button, and a labeled result area. Submitting the form computes the result server-side and re-renders the page with the result.",
+  "run_dir": "output/calculator-app/20260712-214523",
+  "status": "us-001-developer-iteration-2",
+  "current_story_id": "us-001",
+  "developer_iteration": 2,
+  "last_feedback": "Fresh repair attempt. Use only this feedback plus the handoff context; do not rely on prior tool history.\nStatic validation notes:\n- src/app.py: non-stdlib dependency 'flask'"
+}
