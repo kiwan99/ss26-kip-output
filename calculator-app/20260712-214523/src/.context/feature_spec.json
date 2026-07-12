@@ -1,0 +1,11 @@
+{
+  "id": "US-001",
+  "title": "Calculator Interface & Form Submission",
+  "user_story": "As a user, I want to see two number inputs, a way to pick one of the four basic operations (add, subtract, multiply, divide), and a Calculate button on a single-page plain HTML UI served at the root route /, so that I can easily enter my calculation request.",
+  "acceptance_criteria": [
+    "The app serves the plain HTML calculator interface at the root route /",
+    "The page contains exactly two input fields for numbers",
+    "The page includes a way to pick one of the four basic operations (add, subtract, multiply, divide)",
+    "A Calculate button is present and submits the form data to the server"
+  ]
+}

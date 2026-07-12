@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .calculator {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        .result-area {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #e8f6f3;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-value {
+            font-size: 1.5rem;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        @media (max-width: 480px) {
+            .calculator {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculator</h1>
+
+        <form method="POST" action="/">
+            <div class="form-group">
+                <label for="num1">First Number</label>
+                <input type="number" id="num1" name="num1" step="any" value="{{ num1 if num1 is not none else '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="operation">Operation</label>
+                <select id="operation" name="operation">
+                    <option value="add" {% if operation == "add" %}selected{% endif %}>Add</option>
+                    <option value="subtract" {% if operation == "subtract" %}selected{% endif %}>Subtract</option>
+                    <option value="multiply" {% if operation == "multiply" %}selected{% endif %}>Multiply</option>
+                    <option value="divide" {% if operation == "divide" %}selected{% endif %}>Divide</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="num2">Second Number</label>
+                <input type="number" id="num2" name="num2" step="any" value="{{ num2 if num2 is not none else '' }}">
+            </div>
+
+            <button type="submit" name="calculate">Calculate</button>
+        </form>
+
+        {% if result is not none %}
+        <div class="result-area">
+            <div class="result-label">Result</div>
+            <div class="result-value">{{ result }}</div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
