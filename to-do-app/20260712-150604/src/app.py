@@ -33,6 +33,24 @@ def get_tasks():
     return list(tasks)
 
 
+def toggle_task(task_id):
+    """Toggle the completed state of a task by its ID.
+
+    Returns:
+        dict with updated task data on success.
+        None if no task with that ID exists.
+    """
+    for task in tasks:
+        if task["id"] == task_id:
+            task["completed"] = not task["completed"]
+            return {
+                "id": task["id"],
+                "text": task["text"],
+                "completed": task["completed"],
+            }
+    return None
+
+
 # ── Routes ──────────────────────────────────────────────
 
 @app.route("/")
@@ -57,6 +75,24 @@ def handle_add_task():
         return jsonify({"error": "Task text cannot be empty."}), 400
 
     return jsonify(result), 201
+
+
+@app.route("/toggle_task", methods=["POST"])
+def handle_toggle_task():
+    """Accept JSON body {"id": "<task-uuid>"} and toggle task completion.
+
+    Returns:
+        200 + updated task dict on success.
+        404 + error message if task not found.
+    """
+    data = request.get_json(silent=True) or {}
+    task_id = data.get("id", "")
+
+    result = toggle_task(task_id)
+    if result is None:
+        return jsonify({"error": "Task not found."}), 404
+
+    return jsonify(result), 200
 
 
 if __name__ == "__main__":

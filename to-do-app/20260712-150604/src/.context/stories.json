@@ -9,7 +9,7 @@
       "Submitting an empty input does not create a blank task.",
       "After adding, the input field clears automatically for the next entry."
     ],
-    "state": "in-development"
+    "state": "passed"
   },
   {
     "id": "US-002",
@@ -21,7 +21,7 @@
       "Clicking a checkbox or toggle next to a task marks it as complete and applies a visual indicator such as strikethrough or dimmed text.",
       "Clicking again removes the completion state, restoring the original appearance."
     ],
-    "state": "ready-for-development"
+    "state": "in-development"
   },
   {
     "id": "US-003",
