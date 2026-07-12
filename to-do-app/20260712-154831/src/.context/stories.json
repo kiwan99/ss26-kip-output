@@ -1,0 +1,37 @@
+[
+  {
+    "id": "US-001",
+    "title": "View and Add New Tasks",
+    "user_story": "As a user, I want to see an input field and a list area on the page, so that I can quickly add new items to my to-do list.",
+    "acceptance_criteria": [
+      "The page loads with a text input box and an Add button visible at the top.",
+      "Typing text into the input and clicking Add or pressing Enter creates a new task item in the list below.",
+      "The input field clears automatically after successfully adding a task.",
+      "Submitting an empty input does not create a blank task."
+    ],
+    "state": "in-development"
+  },
+  {
+    "id": "US-002",
+    "title": "Mark Tasks Complete or Delete Them",
+    "user_story": "As a user, I want to check off finished tasks or remove unwanted ones, so that my list stays organized and reflects only what needs attention.",
+    "acceptance_criteria": [
+      "Each task in the list displays a clickable checkbox or toggle control.",
+      "Clicking the checkbox marks the task as complete by applying a visual change like strikethrough text or moving it to a completed section.",
+      "A delete button next to each task permanently removes it from the view when clicked.",
+      "All changes appear instantly without requiring a page refresh."
+    ],
+    "state": "ready-for-development"
+  },
+  {
+    "id": "US-003",
+    "title": "Save Tasks Locally for Future Sessions",
+    "user_story": "As a user, I want my tasks to remain saved if I close and reopen the browser tab, so that I do not lose my progress between visits.",
+    "acceptance_criteria": [
+      "Adding, completing, or deleting tasks automatically saves the current list state in the browser's local storage.",
+      "Refreshing the page or reopening the application restores all previously added tasks with their exact completion status.",
+      "No account creation, login, or external server setup is required to save data."
+    ],
+    "state": "ready-for-development"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "id": "US-001",
+  "title": "View and Add New Tasks",
+  "user_story": "As a user, I want to see an input field and a list area on the page, so that I can quickly add new items to my to-do list.",
+  "acceptance_criteria": [
+    "The page loads with a text input box and an Add button visible at the top.",
+    "Typing text into the input and clicking Add or pressing Enter creates a new task item in the list below.",
+    "The input field clears automatically after successfully adding a task.",
+    "Submitting an empty input does not create a blank task."
+  ]
+}
