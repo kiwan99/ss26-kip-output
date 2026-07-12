@@ -1,11 +1,11 @@
 {
-  "id": "US-001",
-  "title": "Calculator Interface & Form Submission",
-  "user_story": "As a user, I want to see two number inputs, a way to pick one of the four basic operations (add, subtract, multiply, divide), and a Calculate button on a single-page plain HTML UI served at the root route /, so that I can easily enter my calculation request.",
+  "id": "US-002",
+  "title": "Server-Side Computation & Result Rendering",
+  "user_story": "As a user, I want submitting the form to compute the result server-side and re-render the page with the result in a labeled area, so that I can see the correct answer immediately.",
   "acceptance_criteria": [
-    "The app serves the plain HTML calculator interface at the root route /",
-    "The page contains exactly two input fields for numbers",
-    "The page includes a way to pick one of the four basic operations (add, subtract, multiply, divide)",
-    "A Calculate button is present and submits the form data to the server"
+    "Submitting the form triggers server-side computation of the selected operation",
+    "The page re-renders after submission displaying the calculated value",
+    "A clearly labeled result area shows the numeric output",
+    "Original input values and chosen operation remain visible on the updated page"
   ]
 }

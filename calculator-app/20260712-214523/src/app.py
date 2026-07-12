@@ -29,11 +29,21 @@ def escape_html(text):
     return s
 
 
+def format_number(value):
+    """Format a number for display, removing unnecessary .0 suffix."""
+    if value is None:
+        return ""
+    f = float(value)
+    if f == int(f):
+        return str(int(f))
+    return str(f)
+
+
 def render_page(num1=None, num2=None, operation="add", result=None):
     """Generate the calculator HTML page."""
 
-    num1_val = escape_html(str(num1)) if num1 is not None else ""
-    num2_val = escape_html(str(num2)) if num2 is not None else ""
+    num1_val = escape_html(format_number(num1)) if num1 is not None else ""
+    num2_val = escape_html(format_number(num2)) if num2 is not None else ""
 
     # Build operation options with selected state
     ops = ["add", "subtract", "multiply", "divide"]
@@ -46,7 +56,7 @@ def render_page(num1=None, num2=None, operation="add", result=None):
     # Build result section
     result_html = ""
     if result is not None:
-        result_display = escape_html(str(result))
+        result_display = escape_html(format_number(result))
         result_html = f'''<div class="result-area">
             <div class="result-label">Result</div>
             <div class="result-value">{result_display}</div>
@@ -167,7 +177,7 @@ def render_page(num1=None, num2=None, operation="add", result=None):
         <form method="POST" action="/">
             <div class="form-group">
                 <label for="num1">First Number</label>
-                <input type="number" id="num1" name="num1" step="any" value="{escape_html(num1_val)}">
+                <input type="number" id="num1" name="num1" step="any" value="{num1_val}">
             </div>
 
             <div class="form-group">
@@ -178,7 +188,7 @@ def render_page(num1=None, num2=None, operation="add", result=None):
 
             <div class="form-group">
                 <label for="num2">Second Number</label>
-                <input type="number" id="num2" name="num2" step="any" value="{escape_html(num2_val)}">
+                <input type="number" id="num2" name="num2" step="any" value="{num2_val}">
             </div>
 
             <button type="submit" name="calculate">Calculate</button>
