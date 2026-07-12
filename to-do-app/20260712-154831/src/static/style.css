@@ -104,6 +104,43 @@ body {
     flex: 1;
 }
 
+/* Checkbox styling */
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #3498db;
+    flex-shrink: 0;
+}
+
+/* Completed task text — strikethrough + muted color */
+.task-text.completed {
+    text-decoration: line-through;
+    color: #95a5a6;
+}
+
+/* Delete button styling */
+.delete-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.delete-btn:active {
+    background-color: #a93226;
+}
+
 /* Empty state message */
 .empty-state {
     text-align: center;
