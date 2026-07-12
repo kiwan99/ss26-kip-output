@@ -19,7 +19,7 @@
       "Submitting the form computes the result server-side.",
       "The page re-renders with a labeled result area showing the computed value."
     ],
-    "state": "in-development"
+    "state": "passed"
   },
   {
     "id": "US-003",
@@ -29,6 +29,6 @@
       "Division by zero shows an error message instead of crashing.",
       "Keep it minimal: no auth, no database, no JS frameworks."
     ],
-    "state": "ready-for-development"
+    "state": "in-development"
   }
 ]
