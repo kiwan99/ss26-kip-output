@@ -154,11 +154,11 @@ def render_html(num1="", num2="", operation="add", result=None, error=None):
         <form method="post" action="/">
             <div class="form-group">
                 <label for="num1">Number 1:</label>
-                <input type="number" id="num1" name="num1" step="any" value="{html.escape(num1)}">
+                <input type="number" id="num1" name="num1" value="{html.escape(num1)}">
             </div>
             <div class="form-group">
                 <label for="num2">Number 2:</label>
-                <input type="number" id="num2" name="num2" step="any" value="{html.escape(num2)}">
+                <input type="number" id="num2" name="num2" value="{html.escape(num2)}">
             </div>
             <div class="form-group">
                 <label for="operation">Operation:</label>
@@ -225,17 +225,25 @@ class CalculatorHandler(BaseHTTPRequestHandler):
             result = None
             error = None
 
-            # Validate inputs are not empty
-            if not num1_str or not num2_str:
-                error = "Error: Both number fields must be filled in."
+            # Validate inputs are not empty (Acceptance Criterion 1)
+            empty_fields = []
+            if not num1_str.strip():
+                empty_fields.append("Number 1")
+            if not num2_str.strip():
+                empty_fields.append("Number 2")
+
+            if empty_fields:
+                error = "Error: The following field(s) must be filled in: " + ", ".join(empty_fields) + "."
             else:
+                # Validate inputs are numeric (Acceptance Criterion 2)
                 try:
-                    num1 = float(num1_str)
-                    num2 = float(num2_str)
+                    num1 = float(num1_str.strip())
+                    num2 = float(num2_str.strip())
                 except (ValueError, TypeError):
-                    error = "Error: Please enter valid numbers."
+                    error = "Warning: Please enter valid numeric values."
 
                 if not error:
+                    # Perform calculation - division by zero handled inside calculate() (Acceptance Criterion 3)
                     result, error = calculate(num1, num2, operation)
 
             page_html = render_html(

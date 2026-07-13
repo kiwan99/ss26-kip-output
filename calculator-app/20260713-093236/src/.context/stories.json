@@ -21,7 +21,7 @@
       "A clearly labeled Result area shows the computed value.",
       "The calculation correctly handles addition, subtraction, multiplication, and division."
     ],
-    "state": "in-development"
+    "state": "passed"
   },
   {
     "id": "US-003",
@@ -33,6 +33,6 @@
       "Prevents division by zero and shows a specific error message.",
       "Preserves entered values in the form fields after submission to avoid re-typing."
     ],
-    "state": "ready-for-development"
+    "state": "in-development"
   }
 ]
