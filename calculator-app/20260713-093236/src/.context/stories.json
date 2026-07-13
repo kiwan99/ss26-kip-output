@@ -9,7 +9,7 @@
       "A selection control allows picking one of the four basic operations (add, subtract, multiply, divide).",
       "A Calculate button is present to submit the form."
     ],
-    "state": "in-development"
+    "state": "passed"
   },
   {
     "id": "US-002",
@@ -21,7 +21,7 @@
       "A clearly labeled Result area shows the computed value.",
       "The calculation correctly handles addition, subtraction, multiplication, and division."
     ],
-    "state": "ready-for-development"
+    "state": "in-development"
   },
   {
     "id": "US-003",

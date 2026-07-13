@@ -174,17 +174,21 @@ def render_html(num1="", num2="", operation="add", result=None, error=None):
 
 
 def calculate(num1, num2, operation):
-    """Perform the calculation based on the selected operation."""
+    """Perform the calculation based on the selected operation.
+
+    Returns a tuple of (result, error). On success result is the computed value
+    and error is None. On failure result is None and error contains the message.
+    """
     if operation == "add":
-        return num1 + num2
+        return num1 + num2, None
     elif operation == "subtract":
-        return num1 - num2
+        return num1 - num2, None
     elif operation == "multiply":
-        return num1 * num2
+        return num1 * num2, None
     elif operation == "divide":
         if num2 == 0:
             return None, "Error: Division by zero is not allowed."
-        return num1 / num2
+        return num1 / num2, None
     else:
         return None, "Error: Invalid operation selected."
 
@@ -232,13 +236,9 @@ class CalculatorHandler(BaseHTTPRequestHandler):
                     error = "Error: Please enter valid numbers."
 
                 if not error:
-                    calc_result = calculate(num1, num2, operation)
-                    if isinstance(calc_result, tuple):
-                        result, error = calc_result
-                    else:
-                        result = calc_result
+                    result, error = calculate(num1, num2, operation)
 
-            html = render_html(
+            page_html = render_html(
                 num1=num1_str,
                 num2=num2_str,
                 operation=operation,
@@ -249,7 +249,7 @@ class CalculatorHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.end_headers()
-            self.wfile.write(html.encode("utf-8"))
+            self.wfile.write(page_html.encode("utf-8"))
         else:
             self.send_response(404)
             self.send_header("Content-Type", "text/html; charset=utf-8")
