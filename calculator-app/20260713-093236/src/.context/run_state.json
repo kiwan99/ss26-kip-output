@@ -1,8 +1,8 @@
 {
   "feature_request": "Build a single-page calculator app: plain HTML UI served at the root route /. The page contains two number inputs, a way to pick one of the four basic operations (add, subtract, multiply, divide), a Calculate button, and a labeled result area. Submitting the form computes the result server-side and re-renders the page with the result.",
   "run_dir": "output/calculator-app/20260713-093236",
-  "status": "us-001-developer-iteration-1",
-  "current_story_id": "us-001",
+  "status": "us-002-developer-iteration-1",
+  "current_story_id": "us-002",
   "developer_iteration": 1,
   "last_feedback": "No prior feedback. Preserve completed stories while implementing the current story."
 }
