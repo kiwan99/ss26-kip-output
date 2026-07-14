@@ -1,0 +1,10 @@
+{
+  "id": "US-001",
+  "title": "Calculator Input Form",
+  "user_story": "As a calculator user, I want to enter two numbers and select an operation on a single page, so that I can prepare my calculation request.",
+  "acceptance_criteria": [
+    "The root route (/) displays a plain HTML page containing exactly two number input fields.",
+    "A selection control allows picking one of the four basic operations: add, subtract, multiply, or divide.",
+    "A Calculate button submits the form data to the server."
+  ]
+}
