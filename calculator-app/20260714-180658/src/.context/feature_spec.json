@@ -1,0 +1,10 @@
+{
+  "id": "US-001",
+  "title": "Calculator Display and Number Entry",
+  "user_story": "As a user, I want to see a clear display area and number buttons (0-9), so that I can easily enter numbers for my calculations.",
+  "acceptance_criteria": [
+    "The web page loads with an empty or zero-initialized display area at the top.",
+    "Clicking any number button (0-9) appends that digit to the current input in the display.",
+    "The display updates immediately after each click without requiring a full page refresh."
+  ]
+}

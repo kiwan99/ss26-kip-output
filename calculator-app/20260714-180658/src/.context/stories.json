@@ -1,0 +1,46 @@
+[
+  {
+    "id": "US-001",
+    "title": "Calculator Display and Number Entry",
+    "user_story": "As a user, I want to see a clear display area and number buttons (0-9), so that I can easily enter numbers for my calculations.",
+    "acceptance_criteria": [
+      "The web page loads with an empty or zero-initialized display area at the top.",
+      "Clicking any number button (0-9) appends that digit to the current input in the display.",
+      "The display updates immediately after each click without requiring a full page refresh."
+    ],
+    "state": "in-development"
+  },
+  {
+    "id": "US-002",
+    "title": "Perform Addition, Subtraction, Multiplication, and Division",
+    "user_story": "As a user, I want to select an arithmetic operator between numbers, so that I can compute the result of basic math operations.",
+    "acceptance_criteria": [
+      "Clicking an operator button (+, -, *, /) records the current input as the first operand and prepares for the second.",
+      "The display clears or shows a placeholder after selecting an operator to indicate readiness for the next number.",
+      "Pressing the equals button calculates the result using the selected operator and displays it accurately."
+    ],
+    "state": "ready-for-development"
+  },
+  {
+    "id": "US-003",
+    "title": "Clear Input and Reset Calculator",
+    "user_story": "As a user, I want a clear button to erase my current input or reset the entire calculation, so that I can correct mistakes or start fresh without reloading the page.",
+    "acceptance_criteria": [
+      "A 'Clear' (C) button is visible on the interface.",
+      "Clicking 'Clear' resets the display to zero and removes any pending operators or operands.",
+      "The calculator returns to its initial ready state after clearing, allowing immediate new input."
+    ],
+    "state": "ready-for-development"
+  },
+  {
+    "id": "US-004",
+    "title": "Handle Invalid Operations Gracefully",
+    "user_story": "As a user, I want to see an error message when attempting to divide by zero, so that I understand the operation is invalid without breaking the app.",
+    "acceptance_criteria": [
+      "Attempting to calculate division with zero as the second operand displays a clear 'Error' or 'Cannot divide by zero' message in the display area.",
+      "The calculator remains functional after showing an error, allowing the user to clear and try again.",
+      "No browser crashes or unhandled exceptions occur when this edge case is triggered."
+    ],
+    "state": "ready-for-development"
+  }
+]
