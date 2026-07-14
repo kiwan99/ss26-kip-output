@@ -19,7 +19,7 @@
       "The computed value correctly reflects the selected operation applied to the two entered numbers.",
       "The original input values remain visible after submission for easy verification or adjustment."
     ],
-    "state": "in-development"
+    "state": "passed"
   },
   {
     "id": "US-003",
@@ -30,6 +30,6 @@
       "Selecting divide with zero as the second number shows a specific warning instead of an application crash.",
       "Error states preserve user input so corrections can be made without re-typing everything."
     ],
-    "state": "ready-for-development"
+    "state": "in-development"
   }
 ]
