@@ -1,0 +1,11 @@
+{
+  "id": "US-001",
+  "title": "Basic Calculator Interface & Addition/Subtraction",
+  "user_story": "As a user, I want to enter two numbers and select addition or subtraction, so that I can quickly calculate basic sums and differences in my browser.",
+  "acceptance_criteria": [
+    "The page displays input fields for two numbers and buttons for plus (+) and minus (-).",
+    "Entering valid numbers and clicking the plus button shows the correct sum on the screen.",
+    "Entering valid numbers and clicking the minus button shows the correct difference on the screen.",
+    "Entering non-numeric characters triggers a clear error message without breaking the interface."
+  ]
+}

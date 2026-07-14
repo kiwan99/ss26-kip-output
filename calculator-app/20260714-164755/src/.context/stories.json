@@ -1,0 +1,38 @@
+[
+  {
+    "id": "US-001",
+    "title": "Basic Calculator Interface & Addition/Subtraction",
+    "user_story": "As a user, I want to enter two numbers and select addition or subtraction, so that I can quickly calculate basic sums and differences in my browser.",
+    "acceptance_criteria": [
+      "The page displays input fields for two numbers and buttons for plus (+) and minus (-).",
+      "Entering valid numbers and clicking the plus button shows the correct sum on the screen.",
+      "Entering valid numbers and clicking the minus button shows the correct difference on the screen.",
+      "Entering non-numeric characters triggers a clear error message without breaking the interface."
+    ],
+    "state": "in-development"
+  },
+  {
+    "id": "US-002",
+    "title": "Multiplication & Division Operations",
+    "user_story": "As a user, I want to multiply or divide two numbers, so that I can handle more complex calculations without leaving the app.",
+    "acceptance_criteria": [
+      "The interface includes buttons for multiplication (*) and division (/).",
+      "Clicking the multiplication button with valid numbers displays the correct product.",
+      "Clicking the division button with a non-zero divisor displays the correct quotient, rounded to two decimal places if necessary.",
+      "Attempting division by zero shows a clear 'Cannot divide by zero' error message instead of crashing or showing invalid results."
+    ],
+    "state": "ready-for-development"
+  },
+  {
+    "id": "US-003",
+    "title": "Clear Function & Input Validation",
+    "user_story": "As a user, I want to clear my inputs and results at any time, so that I can start a new calculation without refreshing the page.",
+    "acceptance_criteria": [
+      "A 'Clear' button is visible on the interface next to the operation buttons.",
+      "Clicking Clear resets all input fields to empty and removes any displayed result or error message.",
+      "The app validates that inputs are numeric before processing, showing an error for letters or special characters.",
+      "Decimal numbers are accepted and calculated correctly across all operations."
+    ],
+    "state": "ready-for-development"
+  }
+]
