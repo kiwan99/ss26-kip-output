@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.033" timestamp="2026-07-14T09:29:06.984274+00:00" hostname="jupyter-infwve579"><testcase classname="output.calculator-app.20260714-091305.test.test_us-001" name="test_calculator_input_form" time="0.004" /></testsuite></testsuites>
