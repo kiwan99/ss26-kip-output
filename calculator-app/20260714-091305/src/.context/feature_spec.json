@@ -1,10 +1,10 @@
 {
-  "id": "US-001",
-  "title": "Calculator Input Form",
-  "user_story": "As a calculator user, I want to enter two numbers and select an operation on a single page, so that I can prepare my calculation request.",
+  "id": "US-002",
+  "title": "Server-Side Calculation & Result Display",
+  "user_story": "As a calculator user, I want the app to compute my selected operation and show the answer on the same page, so that I can immediately see the outcome.",
   "acceptance_criteria": [
-    "The root route (/) displays a plain HTML page containing exactly two number input fields.",
-    "A selection control allows picking one of the four basic operations: add, subtract, multiply, or divide.",
-    "A Calculate button submits the form data to the server."
+    "Submitting the form triggers server-side computation and re-renders the page with the result displayed in a labeled area.",
+    "The computed value correctly reflects the selected operation applied to the two entered numbers.",
+    "The original input values remain visible after submission for easy verification or adjustment."
   ]
 }
