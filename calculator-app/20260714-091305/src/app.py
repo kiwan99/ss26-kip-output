@@ -3,7 +3,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import parse_qs
 
 
-def render_page(num1="", num2="", operation="add", result=None, error=None):
+def render_page(num1="", num2="", operation="add", result=None, error=None, num1_error="", num2_error=""):
     add_selected = " selected" if operation == "add" else ""
     subtract_selected = " selected" if operation == "subtract" else ""
     multiply_selected = " selected" if operation == "multiply" else ""
@@ -83,6 +83,20 @@ def render_page(num1="", num2="", operation="add", result=None, error=None):
             outline: none;
             border-color: #409eff;
         }
+        .form-group.error input,
+        .form-group.error select {
+            border-color: #f56c6c;
+            background-color: #fef0f0;
+        }
+        .field-error {
+            color: #f56c6c;
+            font-size: 0.8rem;
+            margin-top: 4px;
+            display: none;
+        }
+        .form-group.error .field-error {
+            display: block;
+        }
         button[type="submit"] {
             width: 100%;
             padding: 12px;
@@ -137,13 +151,15 @@ def render_page(num1="", num2="", operation="add", result=None, error=None):
     <div class="calculator">
         <h1>Calculator</h1>
         <form method="post" action="/">
-            <div class="form-group">
+            <div class="form-group __NUM1_CLASS__">
                 <label for="num1">Number 1</label>
                 <input type="number" id="num1" name="num1" step="any" value="__NUM1__">
+                <div class="field-error">__NUM1_ERROR__</div>
             </div>
-            <div class="form-group">
+            <div class="form-group __NUM2_CLASS__">
                 <label for="num2">Number 2</label>
                 <input type="number" id="num2" name="num2" step="any" value="__NUM2__">
+                <div class="field-error">__NUM2_ERROR__</div>
             </div>
             <div class="form-group">
                 <label for="operation">Operation</label>
@@ -169,7 +185,56 @@ __RESULT_HTML__
     html = html.replace("__DIVIDE_SELECTED__", divide_selected)
     html = html.replace("__RESULT_HTML__", result_html)
 
+    # Replace field-level error indicators
+    num1_class = "form-group error" if num1_error else "form-group"
+    num2_class = "form-group error" if num2_error else "form-group"
+    html = html.replace("__NUM1_CLASS__", num1_class)
+    html = html.replace("__NUM1_ERROR__", num1_error if num1_error else "")
+    html = html.replace("__NUM2_CLASS__", num2_class)
+    html = html.replace("__NUM2_ERROR__", num2_error if num2_error else "")
+
     return html
+
+
+def validate_inputs(num1_str, num2_str):
+    """Validate input fields and return (num1, num2, error_message, field_errors)."""
+    errors = []
+    num1_error = ""
+    num2_error = ""
+
+    # Check for blank inputs first
+    if not num1_str or num1_str.strip() == "":
+        num1_error = "Number 1 is required. Please enter a numeric value."
+        errors.append(num1_error)
+    if not num2_str or num2_str.strip() == "":
+        num2_error = "Number 2 is required. Please enter a numeric value."
+        errors.append(num2_error)
+
+    # Check for non-numeric input (only if the field isn't blank)
+    if num1_str and num1_str.strip() != "" and not num1_error:
+        try:
+            float(num1_str)
+        except ValueError:
+            num1_error = "Invalid number. Please enter only numeric characters for Number 1."
+            errors.append(num1_error)
+
+    if num2_str and num2_str.strip() != "" and not num2_error:
+        try:
+            float(num2_str)
+        except ValueError:
+            num2_error = "Invalid number. Please enter only numeric characters for Number 2."
+            errors.append(num2_error)
+
+    # If there are any field-level errors, return early with a summary message
+    if errors:
+        combined_error = "; ".join(errors)
+        return None, None, combined_error, num1_error, num2_error
+
+    # Parse valid numbers
+    num1 = float(num1_str)
+    num2 = float(num2_str)
+
+    return num1, num2, None, num1_error, num2_error
 
 
 class CalculatorHandler(BaseHTTPRequestHandler):
@@ -200,16 +265,18 @@ class CalculatorHandler(BaseHTTPRequestHandler):
 
             result = None
             error = None
+            num1_error = ""
+            num2_error = ""
 
-            try:
-                if not num1_str or not num2_str:
-                    raise ValueError("Empty input")
-                num1 = float(num1_str)
-                num2 = float(num2_str)
-            except (ValueError, TypeError):
-                error = "Please enter valid numbers for both fields."
+            # Validate inputs first
+            num1, num2, validation_error, field_num1_err, field_num2_err = validate_inputs(num1_str, num2_str)
+            num1_error = field_num1_err
+            num2_error = field_num2_err
 
-            if not error:
+            if validation_error:
+                error = validation_error
+            else:
+                # Perform calculation with validated numbers
                 try:
                     if operation == "add":
                         result = num1 + num2
@@ -219,7 +286,8 @@ class CalculatorHandler(BaseHTTPRequestHandler):
                         result = num1 * num2
                     elif operation == "divide":
                         if num2 == 0:
-                            error = "Cannot divide by zero."
+                            error = "Cannot divide by zero. Please enter a non-zero value for Number 2."
+                            num2_error = "Division by zero is not allowed."
                         else:
                             result = num1 / num2
                     else:
@@ -233,6 +301,8 @@ class CalculatorHandler(BaseHTTPRequestHandler):
                 operation=operation,
                 result=result,
                 error=error,
+                num1_error=num1_error,
+                num2_error=num2_error,
             )
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
