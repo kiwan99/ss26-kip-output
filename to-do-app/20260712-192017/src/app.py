@@ -8,10 +8,11 @@ Serves HTML/CSS/JS and manages tasks via HTTP endpoints.
 
 import json
 import os
+import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
 
-# In-memory task storage (list of dicts: {id, text})
+# In-memory task storage (list of dicts: {id, text, created_at})
 tasks = []
 next_id = 1
 
@@ -30,6 +31,8 @@ class TodoHandler(BaseHTTPRequestHandler):
 
         if path == "/" or path == "/index.html":
             self.serve_index()
+        elif path == "/api/tasks":
+            self.handle_get_tasks()
         elif path.startswith("/static/"):
             self.serve_static(path)
         else:
@@ -118,8 +121,8 @@ class TodoHandler(BaseHTTPRequestHandler):
 
         task_text = text.strip()
 
-        # Add task to in-memory store
-        new_task = {"id": next_id, "text": task_text}
+        # Add task to in-memory store with creation timestamp
+        new_task = {"id": next_id, "text": task_text, "created_at": time.time()}
         tasks.append(new_task)
         next_id += 1
 
@@ -133,7 +136,7 @@ class TodoHandler(BaseHTTPRequestHandler):
         """Send a JSON response."""
         body = json.dumps(data).encode("utf-8")
         self.send_response(status_code)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
@@ -145,17 +148,31 @@ class TodoHandler(BaseHTTPRequestHandler):
             "message": message,
         })
 
+    def handle_get_tasks(self):
+        """Handle GET /api/tasks — return all tasks sorted by creation time."""
+        global tasks
+        sorted_tasks = sorted(tasks, key=lambda t: t.get("created_at", 0))
+        self.send_json_response(200, {
+            "status": "ok",
+            "tasks": sorted_tasks,
+        })
+
 
 def render_html(tasks_list):
     """Generate the full HTML page with server-rendered task list."""
 
+    # Sort tasks chronologically by creation time
+    sorted_tasks = sorted(tasks_list, key=lambda t: t.get("created_at", 0))
+
     # Build server-rendered task list items
     task_items = ""
-    if tasks_list:
-        for t in tasks_list:
+    if sorted_tasks:
+        for t in sorted_tasks:
             escaped_text = escape_html(t["text"])
+            created_at = t.get("created_at", 0)
             task_items += (
-                f'<li class="task-item" data-task-id="{t["id"]}">'
+                f'<li class="task-item" data-task-id="{t["id"]}" '
+                f'data-created-at="{created_at}">'
                 f'{escaped_text}</li>\n'
             )
     else:

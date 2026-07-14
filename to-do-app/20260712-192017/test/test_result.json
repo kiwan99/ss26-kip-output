@@ -1,17 +1,18 @@
 {
   "command": "python3 -m pytest /tests -q --junitxml=/tests/test-results.xml",
-  "exit_code": 0,
+  "exit_code": 1,
   "counts": {
-    "tests": 2,
-    "failures": 0,
+    "tests": 4,
+    "failures": 2,
     "errors": 0,
     "skipped": 0
   },
-  "output": "..                                                                                                                                                                                                                     [100%]\n2 passed in 0.03s",
+  "output": "..FF                                                                                                                                                                                                                   [100%]\n========================================================================================================== FAILURES ==========================================================================================================\n_________________________________________________________________________________________ test_empty_list_placeholder_and_structure __________________________________________________________________________________________\n\n    def test_empty_list_placeholder_and_structure():\n        \"\"\"\n        Covers:\n          - All submitted tasks appear in a vertical list below the input area.\n          - If no tasks exist, a clear placeholder message like 'No tasks yet' is displayed.\n    \n        Verifies HTML structure: taskList <ul> sits after addTaskForm <form>,\n        and when the API returns zero tasks the rendered page contains the\n        'No tasks yet' placeholder paragraph.\n        \"\"\"\n        # Check API state first to know whether we have an empty list scenario\n        _, api_json = _get(\"/api/tasks\")\n>       task_count = len(api_json.get(\"tasks\", []))\n                         ^^^^^^^^^^^^\nE       AttributeError: 'str' object has no attribute 'get'\n\ntest_us-002.py:44: AttributeError\n________________________________________________________________________________________ test_chronological_order_and_dynamic_update _________________________________________________________________________________________\n\n    def test_chronological_order_and_dynamic_update():\n        \"\"\"\n        Covers:\n          - Tasks are ordered chronologically by creation time consistently.\n          - The list updates dynamically as new tasks are added without requiring a page refresh.\n    \n        Posts two distinct tasks with a small delay, then verifies via both the\n        JSON API and rendered HTML that they appear in insertion order (which is\n        chronological) and that the placeholder disappears after adding tasks.\n        \"\"\"\n        # Add first task\n        _, r1 = _post(\"/api/tasks\", {\"text\": \"Task Alpha\"})\n        assert r1[\"status\"] == \"ok\"\n        id_alpha = r1[\"task\"][\"id\"]\n    \n        time.sleep(0.05)  # ensure distinct timestamps\n    \n        # Add second task\n        _, r2 = _post(\"/api/tasks\", {\"text\": \"Task Beta\"})\n        assert r2[\"status\"] == \"ok\"\n        id_beta = r2[\"task\"][\"id\"]\n    \n        # Criterion 2: API returns tasks sorted by created_at (chronological)\n        _, api_json = _get(\"/api/tasks\")\n>       returned_tasks = api_json.get(\"tasks\", [])\n                         ^^^^^^^^^^^^\nE       AttributeError: 'str' object has no attribute 'get'\n\ntest_us-002.py:89: AttributeError\n================================================================================================== short test summary info ===================================================================================================\nFAILED test_us-002.py::test_empty_list_placeholder_and_structure - AttributeError: 'str' object has no attribute 'get'\nFAILED test_us-002.py::test_chronological_order_and_dynamic_update - AttributeError: 'str' object has no attribute 'get'\n2 failed, 2 passed in 0.12s",
   "test_files": [
-    "test_us-001.py"
+    "test_us-001.py",
+    "test_us-002.py"
   ],
   "screenshots": [],
-  "passed": true,
+  "passed": false,
   "test_contract_error": ""
 }

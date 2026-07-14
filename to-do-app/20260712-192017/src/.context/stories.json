@@ -9,7 +9,7 @@
       "Submitting an empty or whitespace-only input does not add a new task and shows a brief validation message.",
       "After successful submission, the input field clears automatically for the next entry."
     ],
-    "state": "in-development"
+    "state": "passed"
   },
   {
     "id": "US-002",
@@ -21,7 +21,7 @@
       "If no tasks exist, a clear placeholder message like 'No tasks yet' is displayed.",
       "The list updates dynamically as new tasks are added without requiring a page refresh."
     ],
-    "state": "ready-for-development"
+    "state": "in-development"
   },
   {
     "id": "US-003",
